@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 
-
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,7 +14,6 @@ export const Line1 = styled.div`
   border-bottom: 10px solid gray;
   border-radius: 10px;
   margin: 0 0 -50px 0;
-  
 `;
 
 export const Line2 = styled.div`
@@ -80,9 +78,9 @@ export const WaterImage = styled.img`
   cursor: pointer;
   transition: transform 0.3s ease;
 
-&:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const CoffeeImage = styled.img`
@@ -91,9 +89,9 @@ export const CoffeeImage = styled.img`
   cursor: pointer;
   transition: transform 0.3s ease;
 
-&:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SportsDrinkImage = styled.img`
@@ -102,9 +100,9 @@ export const SportsDrinkImage = styled.img`
   cursor: pointer;
   transition: transform 0.3s ease;
 
-&:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const CoffeeStarImage = styled.img`
@@ -113,9 +111,9 @@ export const CoffeeStarImage = styled.img`
   cursor: pointer;
   transition: transform 0.3s ease;
 
-&:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SparklingImage = styled.img`
@@ -124,9 +122,9 @@ export const SparklingImage = styled.img`
   cursor: pointer;
   transition: transform 0.3s ease;
 
-&:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const SpecialImage = styled.img`
@@ -135,9 +133,9 @@ export const SpecialImage = styled.img`
   cursor: pointer;
   transition: transform 0.3s ease;
 
-&:hover {
-  transform: scale(1.1);
-}
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const WaterText = styled.div`
@@ -176,7 +174,6 @@ export const SpecialText = styled.div`
   margin-top: 30px;
 `;
 
-
 export const MoneyInputContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -199,7 +196,6 @@ export const MoneyInputContainer = styled.div`
   }
 `;
 
-
 export const MoneyDisplayContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -210,4 +206,8 @@ export const MoneyDisplayContainer = styled.div`
     font-size: 12px;
     margin-bottom: 5px;
   }
+`;
+
+export const ChangeReturnButton = styled.button`
+  /* 버튼 스타일 내용 */
 `;

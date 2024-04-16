@@ -1,3 +1,5 @@
+// Detail.js
+
 import React, { useState } from 'react';
 import * as S from './Detail.styled';
 
@@ -10,6 +12,15 @@ const Detail = () => {
   const currencyUnits = [10, 50, 100, 500, 1000];
   const maxMoneyLimit = 5000;
   const maxTotalMoney = 7000;
+
+  // 거스름돈 상태
+  const [changeCoins, setChangeCoins] = useState({
+    10: 10,
+    50: 10,
+    100: 10,
+    500: 10,
+    1000: 10
+  });
 
   // 음료 객체 배열을 만들어 각 음료의 상태 관리
   const [products, setProducts] = useState([
@@ -33,27 +44,75 @@ const Detail = () => {
   };
 
   const handleProductSelection = (product) => {
-    if (moneyInserted && product.stock > 0 && moneyInput >= product.price) {
-      const change = moneyInput - product.price;
-      setChangeOutput(changeOutput + change);
-      setSelectedProduct(product);
-      // 선택된 음료의 재고를 줄입니다.
-      const updatedProducts = products.map(p => {
-        if (p.id === product.id) {
-          if (p.stock > 0) {
-            return { ...p, stock: p.stock - 1, soldOut: p.stock - 1 === 0 };
-          }
-          return p;
-        }
-        return p;
-      });
-      setProducts(updatedProducts);
-      setMoneyInput(moneyInput - product.price); // 투입된 금액을 갱신
-    } else if (product.stock <= 0) {
-      alert(`${product.name}은(는) 품절되었습니다.`);
+   if (
+     moneyInserted &&
+     product.stock > 0 &&
+     moneyInput >= product.price
+   ) {
+     const change = moneyInput - product.price;
+     setChangeOutput(changeOutput + change);
+     setSelectedProduct(product);
+     // 선택된 음료의 재고를 줄입니다.
+     const updatedProducts = products.map((p) => {
+       if (p.id === product.id) {
+         if (p.stock > 0) {
+           // 재고가 0 이상인 경우에만 재고를 감소시킵니다.
+           return {
+             ...p,
+             stock: p.stock - 1,
+             // 재고가 0이 될 때 품절 처리합니다.
+             soldOut: p.stock - 1 === 0,
+           };
+         }
+         return p;
+       }
+       return p;
+     });
+     setProducts(updatedProducts);
+     setMoneyInput(moneyInput - product.price); // 투입된 금액을 갱신
+     updateChangeCoins(change); // 거스름돈 업데이트
+   } else if (product.stock <= 0) {
+     alert(`${product.name}은(는) 품절되었습니다.`);
+   } else {
+     alert("잔액이 부족합니다.");
+   }
+ };
+ 
+  // 거스름돈 업데이트 함수
+  const updateChangeCoins = (change) => {
+    let remainingChange = change;
+    const newChangeCoins = { ...changeCoins };
+    Object.keys(newChangeCoins).reverse().forEach(coin => {
+      const count = Math.min(Math.floor(remainingChange / parseInt(coin)), newChangeCoins[coin]);
+      newChangeCoins[coin] -= count;
+      remainingChange -= count * parseInt(coin);
+    });
+    if (remainingChange > 0) {
+      alert("거스름돈이 부족합니다.");
+      setChangeOutput(changeOutput - change); // 거스름돈이 부족한 경우, 이전 상태로 롤백
     } else {
-      alert("잔액이 부족합니다.");
+      setChangeCoins(newChangeCoins); // 거스름돈 업데이트
     }
+  };
+
+  // 화폐 반환 함수
+  const returnChange = () => {
+    setMoneyInput(0);
+    setChangeOutput(0);
+    setSelectedProduct(null);
+    setMoneyInserted(false);
+    setChangeCoins({
+      10: 10,
+      50: 10,
+      100: 10,
+      500: 10,
+      1000: 10
+    });
+  };
+
+  // 거스름돈이 있는지 확인하는 함수
+  const hasChange = () => {
+    return Object.values(changeCoins).some(coinCount => coinCount > 0);
   };
 
   return (
@@ -61,10 +120,9 @@ const Detail = () => {
 
       <S.MoneyDisplayContainer>
         {/* 잔돈 표시 */}
-        <span>투입: {moneyInput - changeOutput}원</span>
+        <span>투입: {moneyInput}원</span>
         <span>거스름돈: {changeOutput}원</span>
       </S.MoneyDisplayContainer>
-
 
       <S.MoneyInputContainer>
         {/* 화폐 입력 버튼 */}
@@ -116,6 +174,8 @@ const Detail = () => {
           <S.SpecialText style={{ color: moneyInserted ? (products[5].stock > 0 && moneyInput >= products[5].price ? 'green' : 'red') : 'black' }}>800원</S.SpecialText>
         </S.SpecialGroup>
       </S.TextImageContainer2>
+
+      <S.ChangeReturnButton onClick={hasChange() ? returnChange : null}>거스름돈 반환</S.ChangeReturnButton>
 
     </S.Wrapper>
   );
