@@ -83,7 +83,11 @@ export const WaterImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
 
+   &:hover {
+   transform: scale(1.1);
+   }
 `;
 
 export const WaterText = styled.div`
@@ -97,6 +101,11 @@ export const CoffeeImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const CoffeeText = styled.div`
@@ -110,6 +119,11 @@ export const SportsDrinkImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const SportsDrinkText = styled.div`
@@ -124,6 +138,11 @@ export const coffee_starImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const coffee_starText = styled.div`
@@ -137,6 +156,11 @@ export const sparklingImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const sparklingText = styled.div`
@@ -150,6 +174,11 @@ export const specialImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const specialText = styled.div`
@@ -165,7 +194,7 @@ export const TextImageContainer2 = styled.div`
   display: flex;
   justify-content: space-around;
   position: absolute;
-  top: 150px; /* 수정된 부분: Line1 위에 위치하도록 수정 */
+  top: 150px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -177,6 +206,11 @@ export const CoffeeStarImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const CoffeeStarText = styled.div`
@@ -188,6 +222,11 @@ export const SparklingImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const SparklingText = styled.div`
@@ -199,9 +238,19 @@ export const SpecialImage = styled.img`
   width: 30%;
   height: auto;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;
 
 export const SpecialText = styled.div`
   font-size: 12px;
   font-weight: bold;
+  transition: transform 0.3s ease;
+
+&:hover {
+transform: scale(1.1);
+}
 `;

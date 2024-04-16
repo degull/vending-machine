@@ -31,6 +31,13 @@ export const mainText = styled.div`
     font-style: normal;
   }
   cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: font-size 0.3s ease;
+
+  &:hover {
+    font-size: 14px;
+  }
 
   @media (min-width: 768px) {
     /* 데스크탑 뷰에서의 위치를 모바일 뷰와 동일하게 고정 */
