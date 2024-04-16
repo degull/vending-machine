@@ -35,8 +35,7 @@ const Detail = () => {
   const handleProductSelection = (product) => {
     if (moneyInserted && product.stock > 0 && moneyInput >= product.price) {
       const change = moneyInput - product.price;
-      const totalChange = changeOutput + change;
-      setChangeOutput(totalChange);
+      setChangeOutput(changeOutput + change);
       setSelectedProduct(product);
       // 선택된 음료의 재고를 줄입니다.
       const updatedProducts = products.map(p => {
@@ -49,7 +48,7 @@ const Detail = () => {
         return p;
       });
       setProducts(updatedProducts);
-      setMoneyInput(totalChange > 0 ? totalChange : 0); // 남은 거스름돈으로 투입
+      setMoneyInput(moneyInput - product.price); // 투입된 금액을 갱신
     } else if (product.stock <= 0) {
       alert(`${product.name}은(는) 품절되었습니다.`);
     } else {
@@ -62,7 +61,7 @@ const Detail = () => {
 
       <S.MoneyDisplayContainer>
         {/* 잔돈 표시 */}
-        <span>투입: {moneyInput}원</span>
+        <span>투입: {moneyInput - changeOutput}원</span>
         <span>거스름돈: {changeOutput}원</span>
       </S.MoneyDisplayContainer>
 
