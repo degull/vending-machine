@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import * as S from './Detail.styled';
 
 const Detail = () => {
@@ -8,17 +8,16 @@ const Detail = () => {
   const [moneyInserted, setMoneyInserted] = useState(false); // 화폐가 투입되었는지 여부
 
   const currencyUnits = [10, 50, 100, 500, 1000];
-  const maxMoneyLimit = 5000;
   const maxTotalMoney = 7000;
 
   // 거스름돈 상태
-  const [changeCoins, setChangeCoins] = useState({
+  const changeCoins = {
     10: 10,
     50: 10,
     100: 10,
     500: 10,
     1000: 10
-  });
+  };
 
   // 음료 객체 배열을 만들어 각 음료의 상태 관리
   const [products, setProducts] = useState([
@@ -30,6 +29,12 @@ const Detail = () => {
     { id: 6, name: '특화음료', price: 800, stock: 10, soldOut: false },
     // 나머지 음료들도 동일하게 추가합니다.
   ]);
+
+  // 선택된 제품을 담을 Queue
+  const selectedProductsQueue = useRef([]);
+
+  // 거스름돈을 담을 스택
+  const changeStack = useRef([]);
 
   const handleMoneyInput = (value) => {
     const newMoneyInput = moneyInput + value;
@@ -75,53 +80,61 @@ const Detail = () => {
       setProducts(updatedProducts);
       setMoneyInput(moneyInput - product.price); // 투입된 금액을 갱신
       updateChangeCoins(change); // 거스름돈 업데이트
+      selectedProductsQueue.current.push(product); // 선택된 제품 Queue에 추가
     } else if (product.stock <= 0) {
       alert(`${product.name}은(는) 품절되었습니다.`);
     } else {
       alert("잔액이 부족합니다.");
     }
   };
-  
-  // 거스름돈 업데이트 함수
+
+  // 거스름돈 업데이트 함수 수정
   const updateChangeCoins = (change) => {
     let remainingChange = change;
-    const newChangeCoins = { ...changeCoins };
-    Object.keys(newChangeCoins).reverse().forEach(coin => {
-      const count = Math.min(Math.floor(remainingChange / parseInt(coin)), newChangeCoins[coin]);
-      newChangeCoins[coin] -= count;
+    const newChangeStack = [];
+    Object.keys(changeCoins).reverse().forEach((coin) => {
+      const count = Math.min(Math.floor(remainingChange / parseInt(coin)), changeCoins[coin]);
+      for (let i = 0; i < count; i++) {
+        newChangeStack.push(parseInt(coin));
+      }
       remainingChange -= count * parseInt(coin);
     });
     if (remainingChange > 0) {
       alert("거스름돈이 부족합니다.");
-      setChangeOutput(changeOutput - change); // 거스름돈이 부족한 경우, 이전 상태로 롤백
+      setChangeOutput(changeOutput - change);
     } else {
-      setChangeCoins(newChangeCoins); // 거스름돈 업데이트
+      changeStack.current = newChangeStack;
     }
   };
 
-  // 화폐 반환 함수
+  // 화폐 반환 함수 수정
   const returnChange = () => {
+    // Queue에서 선택된 제품을 하나씩 제거하면서 반환
+    while (selectedProductsQueue.current.length > 0) {
+      const product = selectedProductsQueue.current.shift();
+      // 선택된 제품 반환 로직...
+    }
+
+    // 스택에 있는 거스름돈을 반환
+    while (changeStack.current.length > 0) {
+      const coin = changeStack.current.pop();
+      // 화폐 반환 로직...
+    }
+
+    // 나머지 상태 초기화
     setMoneyInput(0);
     setChangeOutput(0);
     setSelectedProduct(null);
     setMoneyInserted(false);
-    setChangeCoins({
-      10: 10,
-      50: 10,
-      100: 10,
-      500: 10,
-      1000: 10
-    });
   };
 
   // 거스름돈이 있는지 확인하는 함수
   const hasChange = () => {
-    return Object.values(changeCoins).some(coinCount => coinCount > 0);
+    return changeStack.current.length > 0;
   };
 
   return (
     <S.Wrapper>
-
       <S.MoneyDisplayContainer>
         {/* 잔돈 표시 */}
         <span>투입: {moneyInput}원</span>
