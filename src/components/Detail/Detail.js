@@ -1,5 +1,3 @@
-// Detail.js
-
 import React, { useState } from 'react';
 import * as S from './Detail.styled';
 
@@ -44,40 +42,46 @@ const Detail = () => {
   };
 
   const handleProductSelection = (product) => {
-   if (
-     moneyInserted &&
-     product.stock > 0 &&
-     moneyInput >= product.price
-   ) {
-     const change = moneyInput - product.price;
-     setChangeOutput(changeOutput + change);
-     setSelectedProduct(product);
-     // 선택된 음료의 재고를 줄입니다.
-     const updatedProducts = products.map((p) => {
-       if (p.id === product.id) {
-         if (p.stock > 0) {
-           // 재고가 0 이상인 경우에만 재고를 감소시킵니다.
-           return {
-             ...p,
-             stock: p.stock - 1,
-             // 재고가 0이 될 때 품절 처리합니다.
-             soldOut: p.stock - 1 === 0,
-           };
-         }
-         return p;
-       }
-       return p;
-     });
-     setProducts(updatedProducts);
-     setMoneyInput(moneyInput - product.price); // 투입된 금액을 갱신
-     updateChangeCoins(change); // 거스름돈 업데이트
-   } else if (product.stock <= 0) {
-     alert(`${product.name}은(는) 품절되었습니다.`);
-   } else {
-     alert("잔액이 부족합니다.");
-   }
- };
- 
+    // 제품이 없는 경우에 대한 예외 처리
+    if (!product) {
+      alert("잘못된 제품입니다.");
+      return;
+    }
+
+    if (
+      moneyInserted &&
+      product.stock > 0 &&
+      moneyInput >= product.price
+    ) {
+      const change = moneyInput - product.price;
+      setChangeOutput(changeOutput + change);
+      setSelectedProduct(product);
+      // 선택된 음료의 재고를 줄입니다.
+      const updatedProducts = products.map((p) => {
+        if (p.id === product.id) {
+          if (p.stock > 0) {
+            // 재고가 0 이상인 경우에만 재고를 감소시킵니다.
+            return {
+              ...p,
+              stock: p.stock - 1,
+              // 재고가 0이 될 때 품절 처리합니다.
+              soldOut: p.stock - 1 === 0,
+            };
+          }
+          return p;
+        }
+        return p;
+      });
+      setProducts(updatedProducts);
+      setMoneyInput(moneyInput - product.price); // 투입된 금액을 갱신
+      updateChangeCoins(change); // 거스름돈 업데이트
+    } else if (product.stock <= 0) {
+      alert(`${product.name}은(는) 품절되었습니다.`);
+    } else {
+      alert("잔액이 부족합니다.");
+    }
+  };
+  
   // 거스름돈 업데이트 함수
   const updateChangeCoins = (change) => {
     let remainingChange = change;
