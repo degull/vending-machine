@@ -209,5 +209,20 @@ export const MoneyDisplayContainer = styled.div`
 `;
 
 export const ChangeReturnButton = styled.button`
-  /* 버튼 스타일 내용 */
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #45a049;
+  }
 `;

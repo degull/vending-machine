@@ -5,23 +5,23 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-height: 80vh;
-  position: relative;
+  min-height: 100vh;
 `;
 
 export const MainImg = styled.img`
-  width: 700px;
+  width: 100%;
+  max-width: 700px; /* 이미지가 화면보다 넓지 않게 설정 */
   height: auto;
 `;
 
-export const mainText = styled.div`
+export const MainText = styled.div`
   color: #9c8;
-  font-size: 18px;
+  font-size: 11px;
   font-weight: 800;
   text-align: center;
   position: absolute;
-  top: 35%;
-  left: 78%;
+  top: 26%;
+  left: 65.5%;
   transform: translate(-50%, -50%);
   font-family: 'Ownglyph_meetme-Rg';
   @font-face {
@@ -31,17 +31,15 @@ export const mainText = styled.div`
     font-style: normal;
   }
   cursor: pointer;
-  font-size: 12px;
   font-weight: bold;
   transition: font-size 0.3s ease;
 
   &:hover {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   @media (min-width: 768px) {
-    /* 데스크탑 뷰에서의 위치를 모바일 뷰와 동일하게 고정 */
-    top: 35%;
-    left: 78%;
+    top: 51%;
+    left: 60.5%;
   }
 `;

@@ -8,7 +8,7 @@ const Main = () => {
       <S.Wrapper>
          <S.MainImg src='/img/vending_machine.png'/>
          <Link to="/Detail/Detail">
-            <S.mainText>주문하기</S.mainText>
+            <S.MainText>주문하기</S.MainText>
          </Link>
       </S.Wrapper>
    );
