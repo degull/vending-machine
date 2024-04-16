@@ -29,6 +29,12 @@ export const mainText = styled.div`
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
+  }
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    /* 데스크탑 뷰에서의 위치를 모바일 뷰와 동일하게 고정 */
+    top: 35%;
+    left: 78%;
+  }
 `;
