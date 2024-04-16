@@ -26,17 +26,17 @@ const Detail = () => {
     const newMoneyInput = moneyInput + value;
     if (newMoneyInput <= maxTotalMoney) {
       setMoneyInput(newMoneyInput);
-      setMoneyInserted(false); // 화폐가 투입되었음을 표시
+      setMoneyInserted(true); // 화폐가 투입되었음을 표시
     } else {
       alert("7000원 이상은 투입할 수 없습니다.");
     }
   };
 
   const handleProductSelection = (product) => {
-    if (selectedProduct === null && moneyInput >= product.price && product.stock > 0) {
+    if (moneyInserted && product.stock > 0 && moneyInput >= product.price) {
       const change = moneyInput - product.price;
-      setChangeOutput(change);
-      setMoneyInput(0);
+      const totalChange = changeOutput + change;
+      setChangeOutput(totalChange);
       setSelectedProduct(product);
       // 선택된 음료의 재고를 줄입니다.
       const updatedProducts = products.map(p => {
@@ -49,7 +49,7 @@ const Detail = () => {
         return p;
       });
       setProducts(updatedProducts);
-      setMoneyInserted(true); // 새로운 거래를 시작했으므로 화폐가 투입되었음을 표시
+      setMoneyInput(totalChange > 0 ? totalChange : 0); // 남은 거스름돈으로 투입
     } else if (product.stock <= 0) {
       alert(`${product.name}은(는) 품절되었습니다.`);
     } else {
