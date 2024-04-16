@@ -198,3 +198,16 @@ export const MoneyInputContainer = styled.div`
     }
   }
 `;
+
+
+export const MoneyDisplayContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  span {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+`;
