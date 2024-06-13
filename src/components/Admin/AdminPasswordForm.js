@@ -1,14 +1,15 @@
 /* import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const isValidPassword = (password) => {
-  // 비밀번호는 특수문자와 숫자가 각각 하나 이상 포함된 8자리 이상의 문자열로 설정됨
   const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
   return passwordRegex.test(password);
 };
 
-const AdminPasswordForm = ({ onPasswordSubmit }) => {
+const AdminPasswordForm = ({ onSubmit }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,8 @@ const AdminPasswordForm = ({ onPasswordSubmit }) => {
       setError('비밀번호가 유효하지 않습니다. 특수문자와 숫자가 각각 하나 이상 포함된 8자리 이상의 문자열이어야 합니다.');
       return;
     }
-    onPasswordSubmit(password);
+    onSubmit(password);
+    navigate('/admin');
   };
 
   const handleChange = (e) => {
@@ -42,6 +44,7 @@ const AdminPasswordForm = ({ onPasswordSubmit }) => {
 
 export default AdminPasswordForm;
  */
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,7 +53,7 @@ const isValidPassword = (password) => {
   return passwordRegex.test(password);
 };
 
-const AdminPasswordForm = ({ onSubmit }) => {
+const AdminPasswordForm = ({ onPasswordSubmit }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -61,7 +64,7 @@ const AdminPasswordForm = ({ onSubmit }) => {
       setError('비밀번호가 유효하지 않습니다. 특수문자와 숫자가 각각 하나 이상 포함된 8자리 이상의 문자열이어야 합니다.');
       return;
     }
-    onSubmit(password);
+    onPasswordSubmit(password);
     navigate('/admin');
   };
 

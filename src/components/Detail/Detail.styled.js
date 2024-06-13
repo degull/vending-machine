@@ -226,3 +226,22 @@ export const ChangeReturnButton = styled.button`
     background-color: #45a049;
   }
 `;
+export const GoToMainButton = styled.button`
+  background-color: #2196F3;
+  border: none;
+  color: white;
+  padding: 8px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0b7dda;
+  }
+`;
+
